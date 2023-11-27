@@ -48,7 +48,7 @@ data_transform = {
                                    transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2471, 0.2435, 0.2616))])} 
 
 # train_dataset = NoiseDataset("cifar10","random",0.09,data_transform["train"],only_wrong=True)
-train_dataset,test_dataset,num_classes,num_training_samples = input_dataset("cifar10","/data/zhaoxian/label_noise/DUBN_cifar/cifar10/","worse_label", "../data/CIFAR-10_human.pt",True,only_wrong=True )
+train_dataset,test_dataset,num_classes,num_training_samples = input_dataset("cifar10","../DUBN_cifar/cifar10/","worse_label", "../data/CIFAR-10_human.pt",True,only_wrong=True )
 train_loader = torch.utils.data.DataLoader(train_dataset,
                                              batch_size=batch_size,
                                              shuffle=True,
