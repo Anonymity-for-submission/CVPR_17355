@@ -12,7 +12,7 @@ from basic_models.vgg import *
 from basic_models.lenet import *
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-cinic_directory = '/new_data/zhaoxian/label_noise_2/data/zero-shot/data/CINIC-10'
+cinic_directory = '../data/zero-shot/data/CINIC-10'
 cinic_mean = [0.47889522, 0.47227842, 0.43047404]
 cinic_std = [0.24205776, 0.23828046, 0.25874835]
 # cinic_train = torch.utils.data.DataLoader(
