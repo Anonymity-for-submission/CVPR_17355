@@ -70,7 +70,7 @@ def main(args):
         model = Lenet5(3).to(device)
     # acc_total = []
    
-    weight = "/new_data/zhaoxian/label_noise_2/weights/cifar10/worse_label/supcontrast/resnet34/1_0.5_lr_splitby60/newclean_sup_best.pth"
+    weight = "../weights/cifar10/worse_label/supcontrast/resnet34/1_0.5_lr_splitby60/newclean_sup_best.pth"
 
 # # 如果存在预训练权重则载入
     if weight != "":
