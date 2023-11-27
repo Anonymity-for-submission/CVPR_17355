@@ -80,7 +80,7 @@ def cifar_c_testloader(corruption, data_dir, transforms,num_classes=10,
     #print('using in ', base_c_path)
     # test set:
     test_transform = transforms
-    test_set = CIFAR("/data/zhaoxian/label_noise/DUBN_cifar/data/", train=False, transform=test_transform, download=False)
+    test_set = CIFAR("../DUBN_cifar/data/", train=False, transform=test_transform, download=False)
 
     test_set.data = np.load(os.path.join(base_c_path, '%s.npy' % corruption))
     test_set.targets = torch.LongTensor(np.load(os.path.join(base_c_path, 'labels.npy')))
@@ -233,7 +233,7 @@ def main(args):
         model = ResNet34().to(device)
     acc_total = []
     # model=PreActResNet18().to(device)
-    weight = args.weight
+    weight = ""
 
     # 如果存在预训练权重则载入
     if weight != "":
@@ -270,13 +270,8 @@ if __name__ == '__main__':
     parser.add_argument('--noise_ratio', type=float,default='0.1')
     parser.add_argument('--model', default='resnet18')
     parser.add_argument('--ifbest', default=False)
-    parser.add_argument('--data_root_path', default="/data/zhaoxian/dataset/")
+    parser.add_argument('--data_root_path', default="")
     # 数据集所在根目录
-
-    # parser.add_argument('--weight', type=str, default='/data/zhaoxian/label_noise/train/supcontrast/weights/cifar10/clean/supcontrast/resnet18/clean/clean_sup_best.pth',help='initial weights path')
-    parser.add_argument('--weight', type=str, default='/data/zhaoxian/label_noise/train/supcontrast/weights/cifar10/worse_label/supcontrast/resnet18/1_0.8_lr_splitby20/clean_sup_best.pth',help='initial weights path')
-    # parser.add_argument('--weight', type=str, default='/data/zhaoxian/label_noise/weight/cifar10/clean/resnet18/round1-199.pth',help='initial weights path')
-    # parser.add_argument('--weight', type=str, default='/data/zhaoxian/label_noise/weight/cifar_model_weights_30_epochs.pth',help='initial weights path')
     parser.add_argument('--freeze-layers', type=bool, default=False)
     parser.add_argument('--device', default='cuda', help='device id (i.e. 0 or 0,1 or cpu)')
     opt = parser.parse_args()
