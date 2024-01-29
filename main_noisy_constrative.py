@@ -40,7 +40,7 @@ def main(args):
     if os.path.exists(weight_path) is False:
         os.makedirs(weight_path)
     nw = min([os.cpu_count(), batch_size if batch_size > 1 else 0, 8])
-    # 实例化训练数据集
+    
     noise_type_map = {'clean':'clean_label', 'worst': 'worse_label', 'aggre': 'aggre_label', 'rand1': 'random_label1', 'rand2': 'random_label2', 'rand3': 'random_label3', 'clean100': 'clean_label', 'noisy100': 'noisy_label'}
     train_dataset_clean,test_dataset_clean,num_classes,num_training_samples_clean = input_dataset(args.dataset,"../../DUBN_cifar/data/",args.noise_type,  "../../data/CIFAR-10_human.pt",True,only_right=True)
     train_dataset,_,_,num_training_samples= input_dataset(args.dataset, "../../DUBN_cifar/data/",args.noise_type, "../../data/CIFAR-10_human.pt",True,only_wrong=True)
@@ -72,7 +72,7 @@ def main(args):
    
     weight = "../weights/cifar10/worse_label/supcontrast/resnet34/1_0.5_lr_splitby60/newclean_sup_best.pth"
 
-# # 如果存在预训练权重则载入
+# # 
     if weight != "":
         if os.path.exists(weight):
             weights_dict = torch.load(weight, map_location=device)
@@ -100,19 +100,19 @@ def main(args):
         model.train()
         loss_function = torch.nn.CrossEntropyLoss()
         # loss_mse = torch.nn.MSELoss()
-        accu_loss = torch.zeros(1).to(device)  # 累计损失
+        accu_loss = torch.zeros(1).to(device)  #
         accu_num = torch.zeros(1).to(device) 
-          # 累计预测正确的样本数
+          # 
         optimizer.zero_grad()
 
         lr_scheduler_local = None
-        if epoch == 0 and args.warmup is True:  # 当训练第一轮（epoch=0）时，启用warmup训练方式，可理解为热身训练
+        if epoch == 0 and args.warmup is True:  # 
             warmup_factor = 1.0 / 1000
             warmup_iters = min(1000, len(train_loader) - 1)
 
             lr_scheduler_local = warmup_lr_scheduler(optimizer, warmup_iters, warmup_factor)
 
-        # 在进程0中打印训练进度
+        # 
         # if is_main_process():
         data_loader = tqdm(train_loader)
 
@@ -171,13 +171,13 @@ def main(args):
             with torch.cuda.amp.autocast(enabled=enable_amp):
             #     pred= model(images.to(device))
             #     # print(pred.shape)
-            # 强正样本间的关系
+            # 
                 # print(real_label_temp)
                 loss_ce = loss_function(pred_clean, clean_real_label.long().to(device))
 
                 loss1 = criterion(features, real_label = real_label)
             #     # loss2 = criterion(features, labels = label)
-            # # 弱正样本间的关系
+            # # 
                 loss2 = criterion(features, labels=label, real_label = real_label)
                 loss = loss_ce+0.2*loss1+0.1*loss2
                 
@@ -211,7 +211,7 @@ def main(args):
         loss_loss1_all.append(np.array(loss1.mean().detach().cpu()))
         loss_loss2_all.append(np.array(loss2.mean().detach().cpu()))
         # loss_mse_all.append(np.array(loss_mse_num.mean().detach().cpu()))
-        # 等待所有进程计算完毕
+        # 
         if device != torch.device("cpu"):
             torch.cuda.synchronize(device)
 
@@ -247,7 +247,7 @@ if __name__ == '__main__':
     parser.add_argument('--noise_ratio', type=float,default='0.1')
     parser.add_argument('--model', default='resnet34')
     parser.add_argument('--ifbest', default=False)
-    # 数据集所在根目录
+    # 
 
     parser.add_argument('--weights', type=str, default='../weight/resnet18-cifar-random-20.pth',
                         help='initial weights path')
