@@ -21,7 +21,7 @@ model = ResNet34().cuda()
 
 # weight = "../weights/cifar10/clean/supcontrast/resnet34/clean_sup_best.pth"
 weight="../weights/clean_ot_param/resnet34/best.pth"
-# 如果存在预训练权重则载入
+# 
 if weight != "":
     if os.path.exists(weight):
         weights_dict = torch.load(weight)
