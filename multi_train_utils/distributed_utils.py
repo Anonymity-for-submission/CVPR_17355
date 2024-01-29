@@ -20,7 +20,7 @@ def init_distributed_mode(args):
     args.distributed = True
 
     torch.cuda.set_device(args.gpu)
-    args.dist_backend = 'nccl'  # 通信后端，nvidia GPU推荐使用NCCL
+    args.dist_backend = 'nccl'  
     print('| distributed init (rank {}): {}'.format(
         args.rank, args.dist_url), flush=True)
     dist.init_process_group(backend=args.dist_backend, init_method=args.dist_url,
@@ -33,7 +33,7 @@ def cleanup():
 
 
 def is_dist_avail_and_initialized():
-    """检查是否支持分布式环境"""
+    
     if not dist.is_available():
         return False
     if not dist.is_initialized():
@@ -59,7 +59,7 @@ def is_main_process():
 
 def reduce_value(value, average=True):
     world_size = get_world_size()
-    if world_size < 2:  # 单GPU的情况
+    if world_size < 2:  
         return value
 
     with torch.no_grad():
@@ -73,11 +73,11 @@ def reduce_value(value, average=True):
 def warmup_lr_scheduler(optimizer, warmup_iters, warmup_factor):
 
     def f(x):
-        """根据step数返回一个学习率倍率因子"""
+        
         if x >= warmup_iters:  # 当迭代数大于给定的warmup_iters时，倍率因子为1
             return 1
         alpha = float(x) / warmup_iters
-        # 迭代过程中倍率因子从warmup_factor -> 1
+       
         return warmup_factor * (1 - alpha) + alpha
 
     return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=f)
