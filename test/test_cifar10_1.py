@@ -130,7 +130,7 @@ def main():
 
     torch.cuda.set_device(opt.gpu)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-# 读数据
+#
     test_dataset = load_new_test_data(version_string='v4')
 #     transforms=transforms.Compose([
 #     transforms.ToTensor(),
@@ -169,7 +169,7 @@ def main():
         images = test_dataset[0]
         labels = test_dataset[1]
 
-# 遍历数据集
+# 
     sum = 0
     loss_all = 0
     for i in range(len(images)):
