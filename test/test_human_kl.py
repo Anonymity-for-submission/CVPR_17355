@@ -96,7 +96,7 @@ def main(args):
     
 
     
-    # 实例化训练数据集
+    # 
     trainset,testset,num_classes,num_training_samples = input_dataset()
     print('Using {} dataloader workers every process'.format(nw))
     test_loader = torch.utils.data.DataLoader(testset,
@@ -114,7 +114,7 @@ def main(args):
     
     weight = args.weight
 
-    # 如果存在预训练权重则载入
+    # 
     if weight != "":
         if os.path.exists(weight):
             weights_dict = torch.load(weight, map_location=device)
@@ -161,7 +161,7 @@ if __name__ == '__main__':
     parser.add_argument('--model', default='resnet34')
     parser.add_argument('--ifbest', default=False)
     parser.add_argument('--data_root_path', default="../dataset/")
-    # 数据集所在根目录
+    # 
     # parser.add_argument('--weight', type=str, default='../weights/cifar10/clean/supcontrast/resne34/clean_sup_best.pth',help='initial weights path')
     # parser.add_argument('--weight', type=str, default='../weights/clean_ot_param/resnet34/best.pth',help='initial weights path')
     parser.add_argument('--weight', type=str, default='../weights/cifar10/aggre_label/supcontrast/resnet34/1_0.5_lr_splitby60/clean_sup_best.pth',help='initial weights path')
