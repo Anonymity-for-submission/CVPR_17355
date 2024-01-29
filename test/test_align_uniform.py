@@ -214,7 +214,7 @@ def main(args):
         log_path = "./logs_"+args.dataset+"_"+args.noise_type+"_"+args.model
     
     nw = min([os.cpu_count(), batch_size if batch_size > 1 else 0, 8])
-    # 实例化训练数据集
+    # 
     if args.dataset == "cifar10":
         test_data =  CIFAR10(base_dir, train=False, transform=data_transform["val"], download=False)
     if args.dataset =="cifar100":
@@ -235,7 +235,7 @@ def main(args):
     # model=PreActResNet18().to(device)
     weight = ""
 
-    # 如果存在预训练权重则载入
+    #
     if weight != "":
         if os.path.exists(weight):
             weights_dict = torch.load(weight, map_location=device)
@@ -271,7 +271,7 @@ if __name__ == '__main__':
     parser.add_argument('--model', default='resnet18')
     parser.add_argument('--ifbest', default=False)
     parser.add_argument('--data_root_path', default="")
-    # 数据集所在根目录
+    # 
     parser.add_argument('--freeze-layers', type=bool, default=False)
     parser.add_argument('--device', default='cuda', help='device id (i.e. 0 or 0,1 or cpu)')
     opt = parser.parse_args()
