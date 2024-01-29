@@ -59,7 +59,7 @@ def main(args):
     elif args.model == "resnet34":
         model = ResNet34().to(device)
     acc_total = []
-    # 如果存在预训练权重则载入
+    # 
     if weight != "":
         if os.path.exists(weight):
             weights_dict = torch.load(weight, map_location=device)
@@ -104,7 +104,7 @@ if __name__ == '__main__':
     parser.add_argument('--model', default='resnet34')
     parser.add_argument('--ifbest', default=False)
     parser.add_argument('--original', default=True)
-    # 数据集所在根目录
+    # 
 
     parser.add_argument('--weights', type=str, default='../weight/resnet18-cifar-random-20.pth',help='initial weights path')
     
