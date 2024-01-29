@@ -191,7 +191,7 @@ def main(args):
 
             loss = reduce_value(loss, average=True)
             accu_loss += loss.detach().cpu()
-            # # 在进程0中打印平均loss
+           
             # if is_main_process():
             info = "[epoch {}] loss: {:.3f}, train_acc: {:.3f}, lr: {:.5f}".format(
                 epoch,
