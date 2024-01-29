@@ -122,7 +122,7 @@ if model =="resnet18":
 elif model == "resnet34":
     model = ResNet34().to(device)
 acc_total = []
-# 如果存在预训练权重则载入
+# 
 if weight != "":
     if os.path.exists(weight):
         weights_dict = torch.load(weight, map_location=device)
